@@ -1,0 +1,46 @@
+@host = https://localhost:7227
+
+### Login - bob (roles: dev, support | permissions: canedit)
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+  "username": "bob",
+  "password": "bobsecure"
+}
+
+### Login - john (basic user, no roles or permissions)
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+  "username": "john",
+  "password": "123"
+}
+
+### Login - alice (roles: admin | permissions: canprint, canedit)
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+  "username": "alice",
+  "password": "alicepass"
+}
+
+### Login - invalid password (bob)
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+  "username": "bob",
+  "password": "wrongpassword"
+}
+
+### Login - nonexistent user
+POST {{host}}/api/login
+Content-Type: application/json
+
+{
+  "username": "nonexistent",
+  "password": "irrelevant"
+}
