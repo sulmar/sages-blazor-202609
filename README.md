@@ -18,8 +18,8 @@ Do rozpoczęcia tego kursu potrzebujesz następujących rzeczy:
 1. Sklonuj repozytorium Git
 
 ```bash
-git clone https://github.com/sulmar/blazor-template.git
-cd blazor-template
+git clone https://github.com/sulmar/sages-blazor-202609.git
+cd sages-blazor-202609
 ```
 
 2. Zbuduj
