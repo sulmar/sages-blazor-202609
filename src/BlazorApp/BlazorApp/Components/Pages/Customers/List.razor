@@ -1,0 +1,18 @@
+﻿@page "/customers"
+@rendermode InteractiveServer
+
+<h3>@message</h3>
+
+
+@code {
+
+    private string message = "Loading customers...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(5000); // Simulate a delay for loading customers
+
+        message = "Customers loaded successfully!!";
+    }
+
+}

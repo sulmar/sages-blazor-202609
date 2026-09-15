@@ -1,0 +1,19 @@
+﻿@page "/"
+@rendermode InteractiveWebAssembly
+
+
+<h3>@message</h3>
+
+
+@code {
+
+    private string message = "Loading customers 2...";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.Delay(5000); // Simulate a delay for loading customers
+
+        message = "Customers 2 loaded successfully!!";
+    }
+
+}
