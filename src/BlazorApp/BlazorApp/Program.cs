@@ -1,5 +1,6 @@
 using BlazorApp.Client.Pages;
 using BlazorApp.Components;
+using Infrastructure.Fakers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +8,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
+
+builder.Services.AddSingleton<CustomerFaker>();
 
 var app = builder.Build();
 

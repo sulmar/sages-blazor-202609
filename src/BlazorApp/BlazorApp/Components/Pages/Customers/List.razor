@@ -1,16 +1,34 @@
-﻿@page "/customers"
+﻿@page "/"
+@using Domain.Models
+@using Infrastructure.Fakers
 @rendermode InteractiveServer
 
 <h3>@message</h3>
+
+<ul>
+    @foreach(var customer in customers)
+    {
+        <li>@customer.Name @customer.Email</li>
+    }
+    
+</ul>
 
 
 @code {
 
     private string message = "Loading customers...";
 
+    private IEnumerable<Customer> customers;
+
+    [Inject]
+    private CustomerFaker faker { get; set; }
+
     protected override async Task OnInitializedAsync()
-    {
+    {        
+        customers = faker.Generate(10);
+
         await Task.Delay(5000); // Simulate a delay for loading customers
+
 
         message = "Customers loaded successfully!!";
     }
