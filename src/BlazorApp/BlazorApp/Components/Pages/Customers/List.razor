@@ -1,6 +1,5 @@
 ﻿@page "/"
 @using Domain.Abstractions
-@using Domain.Models
 @inject ICustomerRepository Repository
 @rendermode InteractiveServer
 
@@ -8,7 +7,7 @@
 
 @if (customers == null)
 {
-    <p><em>Loading customers...</em></p>
+    <MessageComponent Message="Loading customers..." />
 }
 else
 {
@@ -21,16 +20,3 @@ else
 }
 
 
-@code {    
-
-    private IEnumerable<Customer>? customers;
-
-    // [Inject]
-    // private CustomerFaker faker { get; set; }
-
-    protected override async Task OnInitializedAsync()
-    {        
-        customers = await Repository.GetAllAsync(); // Load customers from the repository        
-    }
-
-}
