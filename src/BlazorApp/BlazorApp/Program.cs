@@ -1,6 +1,9 @@
 using BlazorApp.Client.Pages;
 using BlazorApp.Components;
+using Domain.Abstractions;
+using Domain.Models;
 using Infrastructure.Fakers;
+using Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +13,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveWebAssemblyComponents();
 
 builder.Services.AddSingleton<CustomerFaker>();
+builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
+builder.Services.AddSingleton<IEnumerable<Customer>>(p=>p.GetRequiredService<CustomerFaker>().Generate(10));
 
 var app = builder.Build();
 
