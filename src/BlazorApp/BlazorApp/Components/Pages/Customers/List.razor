@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using Domain.Models
 @using Infrastructure.Fakers
+@inject CustomerFaker faker
 @rendermode InteractiveServer
 
 <h3>@message</h3>
@@ -20,8 +21,8 @@
 
     private IEnumerable<Customer> customers;
 
-    [Inject]
-    private CustomerFaker faker { get; set; }
+    // [Inject]
+    // private CustomerFaker faker { get; set; }
 
     protected override async Task OnInitializedAsync()
     {        
