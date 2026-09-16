@@ -1,0 +1,26 @@
+﻿@page "/products"
+@inject IProductRepository Repository
+@rendermode InteractiveServer
+
+<HeaderComponent Title="Product List" />
+
+@if (products is null)
+{
+    <MessageComponent Message="Loading products..." />
+}
+else
+{
+    <ProductsList Products="@products" />
+
+}
+
+@code {
+
+    private IEnumerable<Product>? products;
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await Repository.GetAllAsync(); // Load products from the repository
+    }
+
+}

@@ -1,0 +1,13 @@
+﻿
+<ItemsList Items="@Products" Context="product" TItem="Product">
+    <ItemTemplate>
+        <li>@product.Name @product.Price</li>
+    </ItemTemplate>
+</ItemsList>
+
+@code {
+
+    [Parameter, EditorRequired]
+    public IEnumerable<Product> Products { get; set; }
+
+}

@@ -16,6 +16,11 @@ builder.Services.AddSingleton<CustomerFaker>();
 builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
 builder.Services.AddSingleton<IEnumerable<Customer>>(p=>p.GetRequiredService<CustomerFaker>().Generate(10));
 
+builder.Services.AddSingleton<ProductFaker>();
+builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
+builder.Services.AddSingleton<IEnumerable<Product>>(p => p.GetRequiredService<ProductFaker>().Generate(10));
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

@@ -10,7 +10,7 @@
     </Loading>
 
     <Loaded>
-        <CustomersTable Customers="@loaderContext" Context="customer">
+       @*  <CustomersTable Customers="@loaderContext" Context="customer">
             <HeaderTemplate>
                 <tr>
                     <th>Nazwa</th>
@@ -29,7 +29,9 @@
                     </td>
                 </tr>
             </RowTemplate>
-        </CustomersTable>
+        </CustomersTable> *@
+
+        <CustomersList Customers="@customers" />
     </Loaded>
 </CustomersLoader>
 

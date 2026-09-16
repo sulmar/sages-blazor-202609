@@ -1,16 +1,12 @@
-﻿@using Domain.Models
+﻿@using BlazorApp.Components.Pages.Products
 
-<ul>
-    @foreach (var customer in Customers)
-    {
+<ItemsList Items="@Customers" Context="customer">
+    <ItemTemplate>
         <li>@customer.Name @customer.Email</li>
-    }
-</ul>
+    </ItemTemplate>
+</ItemsList>
 
 @code {
-
-
     [Parameter, EditorRequired]
     public IEnumerable<Customer> Customers { get; set; }
-
 }
