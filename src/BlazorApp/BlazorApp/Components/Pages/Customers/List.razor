@@ -4,14 +4,31 @@
 
 <HeaderComponent Title="Customer List" />
 
-@if (customers == null)
-{
-    <MessageComponent Message="Loading customers..." />
-}
-else
-{
-    <CustomersList Customers="@customers" />
-}
+<CustomersLoader Customers="@customers" Context="loaderContext">
+    <Loading>
+        <MessageComponent Message="Loading customers..." />
+    </Loading>
+
+    <Loaded>
+        <CustomersTable Customers="@loaderContext" Context="customer">
+            <HeaderTemplate>
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Email</th>
+                </tr>
+            </HeaderTemplate>
+
+            <RowTemplate>
+                <tr>
+                    <td>@customer.Name</td>
+                    <td>@customer.Email</td>
+                </tr>
+            </RowTemplate>
+        </CustomersTable>
+    </Loaded>
+</CustomersLoader>
+
+
 
 @code {
 

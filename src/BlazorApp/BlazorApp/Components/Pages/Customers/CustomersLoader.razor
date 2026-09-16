@@ -1,0 +1,21 @@
+﻿@if (Customers is null)
+{
+    @Loading
+}
+else
+{
+   @Loaded(Customers)
+}
+
+@code {
+
+    [Parameter, EditorRequired] 
+    public IEnumerable<Customer> Customers { get; set; }
+
+    [Parameter]
+    public RenderFragment? Loading { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment<IEnumerable<Customer>> Loaded { get; set;  }
+
+}

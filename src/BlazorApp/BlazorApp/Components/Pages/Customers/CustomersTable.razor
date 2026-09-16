@@ -1,0 +1,34 @@
+﻿<table>
+
+    <thead>
+       @HeaderTemplate
+    </thead>
+    <tbody>        
+        @foreach (var customer in Customers)
+        {
+            @RowTemplate(customer)
+        }
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Total Customers: @Customers.Count()</td>
+        </tr>
+    </tfoot>
+
+    
+</table>
+
+@code {
+
+
+    [Parameter, EditorRequired]
+    public IEnumerable<Customer> Customers { get; set; }
+
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
+    [Parameter, EditorRequired]
+    public RenderFragment<Customer> RowTemplate { get; set;  }
+
+
+}
