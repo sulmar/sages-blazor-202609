@@ -1,0 +1,57 @@
+<div>
+
+
+    @* 
+       <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
+                                    @bind-value="searchText"
+                                    />" 
+    *@
+
+    @* 
+       <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
+                                    @bind="searchText"
+                                    />" 
+    *@
+    
+    @* 
+       <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
+                                    @bind-value="searchText" @bind-value:event="oninput" />" 
+    *@
+
+
+   @* 
+       <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
+                                    @bind="searchText" @bind:event="oninput" />" 
+    *@
+
+
+    @* 
+       <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
+                                    @bind="searchText" @bind:event:get="getter" />" 
+    *@
+
+
+    <input type="text" placeholder="Search..." id="searchTextInput" name="searchText"
+           @bind="searchText" @bind:event="oninput" @bind:after="SearchAsync" />"
+
+    <button type="button" @onclick="SearchAsync">Search</button>
+
+    <pre>@searchText</pre>
+               
+</div>
+
+@code  {
+
+    private string searchText = "abc";
+
+    private async Task SearchAsync()
+    {
+        Console.WriteLine($"Searching with text: {searchText}");
+        
+        await ValueChanged.InvokeAsync(searchText);
+    }
+
+    [Parameter]
+    public EventCallback<string> ValueChanged { get; set; }
+   
+}

@@ -32,16 +32,7 @@
         </CustomersTable> *@
 
 
-        <div>
-            
-            <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
-                                            @bind="searchText" @bind:event="oninput" />"
-
-            <button type="button" @onclick="SearchCustomersAsync">Search</button>
-
-            <pre>@searchText</pre>
-                       
-        </div>
+        <SearchPanel ValueChanged="SearchCustomersAsync" />
 
         <CustomersList Customers="@customers" />
     </Loaded>
@@ -66,12 +57,6 @@
         customers = await Repository.GetAllAsync(); // Refresh the list after deletion
     }
 
-    private async Task SearchCustomersAsync()
-    {
-        Console.WriteLine($"Searching for customers with text: {searchText}");
-
-        await SearchCustomersAsync(searchText);
-    }
 
     private async Task SearchCustomersAsync(string searchText)
     {
@@ -84,5 +69,6 @@
             customers = await Repository.GetByTextAsync(searchText); // Implement a search method in your repository
         }
     }
+  
 }
 
