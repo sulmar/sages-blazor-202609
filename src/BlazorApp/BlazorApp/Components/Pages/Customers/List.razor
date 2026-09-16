@@ -15,6 +15,7 @@
                 <tr>
                     <th>Nazwa</th>
                     <th>Email</th>
+                    <th>Actions</th>
                 </tr>
             </HeaderTemplate>
 
@@ -22,6 +23,10 @@
                 <tr>
                     <td>@customer.Name</td>
                     <td>@customer.Email</td>
+                    <td>
+                        <button class="btn btn-primary">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteCustomerAsync(customer)">Delete</button>
+                    </td>
                 </tr>
             </RowTemplate>
         </CustomersTable>
@@ -37,6 +42,12 @@
     protected override async Task OnInitializedAsync()
     {
         customers = await Repository.GetAllAsync(); // Load customers from the repository
+    }
+
+    private async Task DeleteCustomerAsync(Customer customer)
+    {
+        await Repository.DeleteAsync(customer.Id);
+        customers = await Repository.GetAllAsync(); // Refresh the list after deletion
     }
 }
 
