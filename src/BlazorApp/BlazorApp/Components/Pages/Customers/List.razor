@@ -10,7 +10,7 @@
     </Loading>
 
     <Loaded>
-       @*  <CustomersTable Customers="@loaderContext" Context="customer">
+        @*  <CustomersTable Customers="@loaderContext" Context="customer">
             <HeaderTemplate>
                 <tr>
                     <th>Nazwa</th>
@@ -31,6 +31,18 @@
             </RowTemplate>
         </CustomersTable> *@
 
+
+        <div>
+            
+            <input type="text" placeholder="Search customers..." id="searchTextInput" name="searchText" 
+                                            @bind-value="searchText" @bind-value:event="oninput" />"
+
+            <button type="button" @onclick="SearchCustomersAsync">Search</button>
+
+            <pre>@searchText</pre>
+                       
+        </div>
+
         <CustomersList Customers="@customers" />
     </Loaded>
 </CustomersLoader>
@@ -38,6 +50,8 @@
 
 
 @code {
+
+    private string searchText = "abc";
 
     private IEnumerable<Customer>? customers;
 
@@ -50,6 +64,25 @@
     {
         await Repository.DeleteAsync(customer.Id);
         customers = await Repository.GetAllAsync(); // Refresh the list after deletion
+    }
+
+    private async Task SearchCustomersAsync()
+    {
+        Console.WriteLine($"Searching for customers with text: {searchText}");
+
+        await SearchCustomersAsync(searchText);
+    }
+
+    private async Task SearchCustomersAsync(string searchText)
+    {
+        if (string.IsNullOrWhiteSpace(searchText))
+        {
+            customers = await Repository.GetAllAsync(); // Load all customers if search text is empty
+        }
+        else
+        {
+            customers = await Repository.GetByTextAsync(searchText); // Implement a search method in your repository
+        }
     }
 }
 
