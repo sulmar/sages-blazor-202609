@@ -1,0 +1,16 @@
+﻿@using Domain.Models
+
+<ul>
+    @foreach (var customer in Customers)
+    {
+        <li>@customer.Name @customer.Email</li>
+    }
+</ul>
+
+@code {
+
+
+    [Parameter, EditorRequired]
+    public IEnumerable<Customer> Customers { get; set; }
+
+}

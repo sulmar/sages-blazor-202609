@@ -1,9 +1,8 @@
 ﻿@page "/"
-@using Domain.Abstractions
 @inject ICustomerRepository Repository
 @rendermode InteractiveServer
 
-<h3>Customers</h3>
+<HeaderComponent Title="Customer List" />
 
 @if (customers == null)
 {
@@ -11,12 +10,16 @@
 }
 else
 {
-    <ul>
-        @foreach (var customer in customers)
-        {
-            <li>@customer.Name @customer.Email</li>
-        }
-    </ul>
+    <CustomersList Customers="@customers" />
 }
 
+@code {
+
+    private IEnumerable<Customer>? customers;
+
+    protected override async Task OnInitializedAsync()
+    {
+        customers = await Repository.GetAllAsync(); // Load customers from the repository
+    }
+}
 
