@@ -32,7 +32,10 @@
 
 
     <input type="text" placeholder="Search..." id="searchTextInput" name="searchText"
-           @bind="searchText" @bind:event="oninput" @bind:after="SearchAsync" />"
+           @bind="searchText" @bind:event="oninput" @bind:after="SearchAsync"
+           @ref="searchTextInputReference"
+           
+           />"
 
     <button type="button" @onclick="SearchAsync">Search</button>
 
@@ -43,6 +46,16 @@
 @code  {
 
     private string searchText = "abc";
+
+
+    private ElementReference searchTextInputReference;
+
+   
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await searchTextInputReference.FocusAsync();        
+    }
 
     private async Task SearchAsync()
     {
