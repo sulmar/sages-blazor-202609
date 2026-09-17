@@ -4,6 +4,9 @@
 
 @* <HeaderComponent Title="Customer List" /> *@
 
+
+<button class="btn btn-secondary" @onclick='() => Mode = Mode == "light" ? "dark" : "light"'>Toggle Mode</button>
+
 <h3>Customer List</h3>
 
 <CustomersLoader Customers="@customers" Context="loaderContext">
@@ -14,7 +17,7 @@
     <Loaded>
         <SearchPanel ValueChanged="SearchCustomersAsync" />
 
-         <CustomersTable Customers="@loaderContext" Context="customer">
+         <CustomersTable Customers="@loaderContext" Context="customer" Mode="@Mode">
             <HeaderTemplate>
                 <tr>
                     <th>Nazwa</th>
@@ -45,6 +48,8 @@
 
 
 @code {
+
+    private string Mode { get; set; } = "light";
 
     private string searchText = "abc";
 

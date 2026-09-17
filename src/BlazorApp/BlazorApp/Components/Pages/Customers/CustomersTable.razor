@@ -12,7 +12,9 @@
     </tbody>
     <tfoot>
         <tr>
-            <td colspan="2">Total Customers: @Customers.Count()</td>
+            <td colspan="2">
+                <MessageComponent Message="Total Customers:" Mode="@Mode" />
+            </td>
         </tr>
     </tfoot>
 
@@ -20,7 +22,7 @@
 </table>
 
 
-<button class="btn btn-secondary" @onclick='() => Mode = Mode == "light" ? "dark" : "light"'>Toggle Mode</button>
+
 
 @code {
 
@@ -34,6 +36,7 @@
     [Parameter, EditorRequired]
     public RenderFragment<Customer> RowTemplate { get; set; }
 
-    private string Mode { get; set; } = "light";
+    [Parameter, EditorRequired]
+    public string Mode { get; set; }
 
 }
