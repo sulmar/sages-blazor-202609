@@ -1,0 +1,46 @@
+﻿@page "/js-demo"
+@inject IJSRuntime JS
+@rendermode InteractiveServer
+
+<h3>JsDemo</h3>
+
+
+<button class="btn btn-primary" @onclick="ShowAlert">Show Alert</button>
+
+<button class="btn btn-secondary" @onclick="GetValueAsync">Get Value</button>
+
+
+<button class="btn btn-secondary" @onclick="StartCamera">Start Camera</button>
+
+
+<video @ref="video" autoplay playsinline muted
+       style="width: 100%; max-width: 480px;"></video>
+
+@code {
+
+    private ElementReference video;
+
+    private async Task ShowAlert()
+    {
+        await JS.InvokeVoidAsync("alert", "Hello from Blazor!");
+
+        await JS.InvokeVoidAsync("localStorage.setItem", "a", 2);
+    }
+
+
+    private async Task GetValueAsync()
+    {
+        var value = await JS.InvokeAsync<string>("localStorage.getItem", "a");
+
+        await JS.InvokeVoidAsync("alert", $"Value from localStorage: {value}");
+    }
+
+
+    private async Task StartCamera()
+    {
+        // await JS.InvokeVoidAsync("camera.start", video);
+
+       // camera.StartCamera();
+    }
+
+}
