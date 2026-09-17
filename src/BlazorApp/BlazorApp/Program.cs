@@ -14,13 +14,15 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddSingleton<CustomerFaker>();
-builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
-builder.Services.AddSingleton<IEnumerable<Customer>>(p => p.GetRequiredService<CustomerFaker>().Generate(10));
+//builder.Services.AddSingleton<CustomerFaker>();
+//builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
+//builder.Services.AddSingleton<IEnumerable<Customer>>(p => p.GetRequiredService<CustomerFaker>().Generate(10));
 
-builder.Services.AddSingleton<ProductFaker>();
-builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
-builder.Services.AddSingleton<IEnumerable<Product>>(p => p.GetRequiredService<ProductFaker>().Generate(10));
+//builder.Services.AddSingleton<ProductFaker>();
+//builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
+//builder.Services.AddSingleton<IEnumerable<Product>>(p => p.GetRequiredService<ProductFaker>().Generate(10));
+
+builder.Services.AddInfrastructure();
 
 
 builder.Services.AddScoped<CascadingValueSource<Profile>>(_ =>

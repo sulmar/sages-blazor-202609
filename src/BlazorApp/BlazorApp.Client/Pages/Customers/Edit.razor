@@ -1,6 +1,5 @@
-﻿@page "/customers2/edit/{Id:int}"
-@using Blazored.FluentValidation
-@rendermode InteractiveServer
+﻿@page "/customers/edit/{Id:int}"
+@rendermode InteractiveWebAssembly
 
 @inject ICustomerRepository Repository
 
@@ -15,19 +14,12 @@ else
 {
     <EditForm Model="customer" OnValidSubmit="@HandleSave" FormName="customerForm">
 
-       <FluentValidationValidator />
-
-       @*  <ValidationSummary /> *@
-
         <label for="customerName" class="form-label">Name</label>
         <InputText id="customerName" @bind-Value="customer.Name" class="form-control" /> 
-        <ValidationMessage For="()=>customer.Name" />
-       
 
         <label for="Email" class="form-label">Email</label>
         <InputText id="Email" @bind-Value="customer.Email"   class="form-control"
         /> 
-        <ValidationMessage For="()=>customer.Email" />
 
         <InputCheckbox id="IsDeleted" @bind-Value="customer.IsDeleted" />
 
