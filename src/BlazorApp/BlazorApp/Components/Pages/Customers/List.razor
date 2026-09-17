@@ -69,7 +69,7 @@
         Theme = Theme == "light" ? "dark" : "light";
         Profile.Theme = Theme;
 
-        // await ProfileSource.NotifyChangedAsync();
+        await ProfileSource.NotifyChangedAsync();
     }
 
     [CascadingParameter]
