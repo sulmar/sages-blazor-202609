@@ -1,5 +1,5 @@
 ﻿
-<table class="table table-striped table-bordered table-@Mode">
+<table class="table table-striped table-bordered">
 
     <thead>
        @HeaderTemplate
@@ -13,7 +13,7 @@
     <tfoot>
         <tr>
             <td colspan="2">
-                <MessageComponent Message="Total Customers:" Mode="@Mode" />
+                <MessageComponent Message="Total Customers:" />
             </td>
         </tr>
     </tfoot>
@@ -36,7 +36,5 @@
     [Parameter, EditorRequired]
     public RenderFragment<Customer> RowTemplate { get; set; }
 
-    [Parameter, EditorRequired]
-    public string Mode { get; set; }
 
 }

@@ -5,51 +5,60 @@
 @* <HeaderComponent Title="Customer List" /> *@
 
 
-<button class="btn btn-secondary" @onclick='() => Mode = Mode == "light" ? "dark" : "light"'>Toggle Mode</button>
+<button class="btn btn-secondary" @onclick='() => Theme = Theme == "light" ? "dark" : "light"'>Toggle Theme</button>
 
 <h3>Customer List</h3>
 
-<CustomersLoader Customers="@customers" Context="loaderContext">
-    <Loading>
-        <MessageComponent Message="Loading customers..." />
-    </Loading>
+<CascadingValue Value="@Status" Name="b">
+    <CascadingValue Value="@Theme" Name="a">
+        <CascadingValue Value="2">
 
-    <Loaded>
-        <SearchPanel ValueChanged="SearchCustomersAsync" />
+        
+            <CustomersLoader Customers="@customers" Context="loaderContext">
+                <Loading>
+                    <MessageComponent Message="Loading customers..." />
+                </Loading>
 
-         <CustomersTable Customers="@loaderContext" Context="customer" Mode="@Mode">
-            <HeaderTemplate>
-                <tr>
-                    <th>Nazwa</th>
-                    <th>Email</th>
-                    <th>Actions</th>
-                </tr>
-            </HeaderTemplate>
+                <Loaded>
+                    <SearchPanel ValueChanged="SearchCustomersAsync" />
 
-            <RowTemplate>
-                <tr>
-                    <td>@customer.Name</td>
-                    <td>@customer.Email</td>
-                    <td>
-                        <button class="btn btn-primary">Edit</button>
-                        <button class="btn btn-danger" @onclick="() => DeleteCustomerAsync(customer)">Delete</button>
-                    </td>
-                </tr>
-            </RowTemplate>
-        </CustomersTable> 
+                    <CustomersTable Customers="@loaderContext" Context="customer">
+                        <HeaderTemplate>
+                            <tr>
+                                <th>Nazwa</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </HeaderTemplate>
+
+                        <RowTemplate>
+                            <tr>
+                                <td>@customer.Name</td>
+                                <td>@customer.Email</td>
+                                <td>
+                                    <button class="btn btn-primary">Edit</button>
+                                    <button class="btn btn-danger" @onclick="() => DeleteCustomerAsync(customer)">Delete</button>
+                                </td>
+                            </tr>
+                        </RowTemplate>
+                    </CustomersTable>
 
 
       
 
-       @*  <CustomersList Customers="@customers" /> *@
-    </Loaded>
-</CustomersLoader>
+                    @*  <CustomersList Customers="@customers" /> *@
+                </Loaded>
+            </CustomersLoader>
+        </CascadingValue>
+    </CascadingValue>
+</CascadingValue>
 
 
 
 @code {
 
-    private string Mode { get; set; } = "light";
+    private string Theme { get; set; } = "light";
+    private string Status { get; set; } = "success";
 
     private string searchText = "abc";
 
@@ -77,8 +86,8 @@
         {
             customers = await Repository.GetByTextAsync(searchText); // Implement a search method in your repository
         }
-        
+
     }
-  
+
 }
 
