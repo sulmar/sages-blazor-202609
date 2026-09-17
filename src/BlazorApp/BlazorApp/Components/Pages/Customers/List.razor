@@ -1,6 +1,7 @@
-﻿@page "/"
+﻿@page "/customers"
 @inject ICustomerRepository Repository
 @inject CascadingValueSource<Profile> ProfileSource
+@inject NavigationManager NavigationManager
 @rendermode InteractiveServer
 
 
@@ -39,7 +40,8 @@
                             <td>@customer.Name</td>
                             <td>@customer.Email</td>
                             <td>
-                                <button class="btn btn-primary">Edit</button>
+                                <a href="/customers/edit/@customer.Id" class="btn btn-primary">Edit</a>
+                                <button class="btn btn-primary" @onclick="() => EditCustomerAsync(customer)">Edit</button> 
                                 <button class="btn btn-danger" @onclick="() => DeleteCustomerAsync(customer)">Delete</button>
                             </td>
                         </tr>
@@ -62,6 +64,12 @@
 
     private string Theme { get; set; } = "light";
     private string Status { get; set; } = "success";
+
+
+    private async Task EditCustomerAsync(Customer customer)
+    {      
+        NavigationManager.NavigateTo($"/customers/edit/{customer.Id}");
+    }
 
 
     private async Task ToggleTheme()

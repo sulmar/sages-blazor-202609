@@ -1,0 +1,34 @@
+﻿@page "/customers/edit/{Id:int}"
+
+@inject ICustomerRepository Repository
+
+<h3>Edit Customer #@Id</h3>
+
+
+@if (customer is null)
+{
+    <MessageComponent Message="Customer loading..." />
+}
+else
+{
+       
+    <h3>@customer.Name</h3>
+}
+
+
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+
+ 
+
+    private Customer? customer;
+
+    protected override async Task OnInitializedAsync()
+    {
+        customer = await Repository.GetByIdAsync(Id);
+    }
+
+}
