@@ -1,4 +1,5 @@
-﻿<table>
+﻿
+<table class="table table-striped table-bordered table-@Mode">
 
     <thead>
        @HeaderTemplate
@@ -15,8 +16,11 @@
         </tr>
     </tfoot>
 
-    
+
 </table>
+
+
+<button class="btn btn-secondary" @onclick='() => Mode = Mode == "light" ? "dark" : "light"'>Toggle Mode</button>
 
 @code {
 
@@ -28,7 +32,8 @@
     public RenderFragment? HeaderTemplate { get; set; }
 
     [Parameter, EditorRequired]
-    public RenderFragment<Customer> RowTemplate { get; set;  }
+    public RenderFragment<Customer> RowTemplate { get; set; }
 
+    private string Mode { get; set; } = "light";
 
 }

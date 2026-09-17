@@ -12,7 +12,9 @@
     </Loading>
 
     <Loaded>
-        @*  <CustomersTable Customers="@loaderContext" Context="customer">
+        <SearchPanel ValueChanged="SearchCustomersAsync" />
+
+         <CustomersTable Customers="@loaderContext" Context="customer">
             <HeaderTemplate>
                 <tr>
                     <th>Nazwa</th>
@@ -31,12 +33,12 @@
                     </td>
                 </tr>
             </RowTemplate>
-        </CustomersTable> *@
+        </CustomersTable> 
 
 
-        <SearchPanel ValueChanged="SearchCustomersAsync" />
+      
 
-        <CustomersList Customers="@customers" />
+       @*  <CustomersList Customers="@customers" /> *@
     </Loaded>
 </CustomersLoader>
 
