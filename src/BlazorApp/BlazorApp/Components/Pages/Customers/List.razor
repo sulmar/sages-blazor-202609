@@ -2,7 +2,9 @@
 @inject ICustomerRepository Repository
 @rendermode InteractiveServer
 
-<HeaderComponent Title="Customer List" />
+@* <HeaderComponent Title="Customer List" /> *@
+
+<h3>Customer List</h3>
 
 <CustomersLoader Customers="@customers" Context="loaderContext">
     <Loading>
