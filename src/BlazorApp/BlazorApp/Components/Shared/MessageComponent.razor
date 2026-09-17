@@ -1,16 +1,19 @@
 ﻿
-<p class="text-bg-@Mode p-@Size text-bg-@Result"><em>@Message</em></p>
+<p class="text-bg-@Profile.Theme p-@Profile.Size text-bg-@Result"><em>@Message</em></p>
 
 @code {
 
     [Parameter, EditorRequired]
     public required string Message { get; set; }
 
-    [CascadingParameter(Name = "a")]
-    public string Mode { get; set; }
+    // [CascadingParameter(Name = "a")]
+    // public string Mode { get; set; }
+
+    // [CascadingParameter]
+    // public int Size { get; set; }
 
     [CascadingParameter]
-    public int Size { get; set; }
+    public Profile Profile { get; set; }
 
     [CascadingParameter(Name = "b")]
     public string Result { get; set; }

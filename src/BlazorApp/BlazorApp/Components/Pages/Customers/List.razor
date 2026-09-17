@@ -1,57 +1,60 @@
 ﻿@page "/"
 @inject ICustomerRepository Repository
+@inject CascadingValueSource<Profile> ProfileSource
 @rendermode InteractiveServer
+
 
 @* <HeaderComponent Title="Customer List" /> *@
 
 
-<button class="btn btn-secondary" @onclick='() => Theme = Theme == "light" ? "dark" : "light"'>Toggle Theme</button>
+<button class="btn btn-secondary" @onclick=ToggleTheme>Toggle Theme</button>
+
 
 <h3>Customer List</h3>
 
 <CascadingValue Value="@Status" Name="b">
-    <CascadingValue Value="@Theme" Name="a">
-        <CascadingValue Value="2">
+
+    
 
         
-            <CustomersLoader Customers="@customers" Context="loaderContext">
-                <Loading>
-                    <MessageComponent Message="Loading customers..." />
-                </Loading>
+        <CustomersLoader Customers="@customers" Context="loaderContext">
+            <Loading>
+                <MessageComponent Message="Loading customers..." />
+            </Loading>
 
-                <Loaded>
-                    <SearchPanel ValueChanged="SearchCustomersAsync" />
+            <Loaded>
+                <SearchPanel ValueChanged="SearchCustomersAsync" />
 
-                    <CustomersTable Customers="@loaderContext" Context="customer">
-                        <HeaderTemplate>
-                            <tr>
-                                <th>Nazwa</th>
-                                <th>Email</th>
-                                <th>Actions</th>
-                            </tr>
-                        </HeaderTemplate>
+                <CustomersTable Customers="@loaderContext" Context="customer">
+                    <HeaderTemplate>
+                        <tr>
+                            <th>Nazwa</th>
+                            <th>Email</th>
+                            <th>Actions</th>
+                        </tr>
+                    </HeaderTemplate>
 
-                        <RowTemplate>
-                            <tr>
-                                <td>@customer.Name</td>
-                                <td>@customer.Email</td>
-                                <td>
-                                    <button class="btn btn-primary">Edit</button>
-                                    <button class="btn btn-danger" @onclick="() => DeleteCustomerAsync(customer)">Delete</button>
-                                </td>
-                            </tr>
-                        </RowTemplate>
-                    </CustomersTable>
+                    <RowTemplate>
+                        <tr>
+                            <td>@customer.Name</td>
+                            <td>@customer.Email</td>
+                            <td>
+                                <button class="btn btn-primary">Edit</button>
+                                <button class="btn btn-danger" @onclick="() => DeleteCustomerAsync(customer)">Delete</button>
+                            </td>
+                        </tr>
+                    </RowTemplate>
+                </CustomersTable>
 
 
       
 
-                    @*  <CustomersList Customers="@customers" /> *@
-                </Loaded>
-            </CustomersLoader>
-        </CascadingValue>
+                @*  <CustomersList Customers="@customers" /> *@
+            </Loaded>
+        </CustomersLoader>
     </CascadingValue>
-</CascadingValue>
+
+
 
 
 
@@ -59,6 +62,20 @@
 
     private string Theme { get; set; } = "light";
     private string Status { get; set; } = "success";
+
+
+    private async Task ToggleTheme()
+    {
+        Theme = Theme == "light" ? "dark" : "light";
+        Profile.Theme = Theme;
+
+        // await ProfileSource.NotifyChangedAsync();
+    }
+
+    [CascadingParameter]
+    public Profile Profile { get; set; }
+
+
 
     private string searchText = "abc";
 

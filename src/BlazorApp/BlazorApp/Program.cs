@@ -1,9 +1,11 @@
+using BlazorApp;
 using BlazorApp.Client.Pages;
 using BlazorApp.Components;
 using Domain.Abstractions;
 using Domain.Models;
 using Infrastructure.Fakers;
 using Infrastructure.Repositories;
+using Microsoft.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,11 +16,21 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddSingleton<CustomerFaker>();
 builder.Services.AddSingleton<ICustomerRepository, InMemoryCustomerRepository>();
-builder.Services.AddSingleton<IEnumerable<Customer>>(p=>p.GetRequiredService<CustomerFaker>().Generate(10));
+builder.Services.AddSingleton<IEnumerable<Customer>>(p => p.GetRequiredService<CustomerFaker>().Generate(10));
 
 builder.Services.AddSingleton<ProductFaker>();
 builder.Services.AddSingleton<IProductRepository, InMemoryProductRepository>();
 builder.Services.AddSingleton<IEnumerable<Product>>(p => p.GetRequiredService<ProductFaker>().Generate(10));
+
+
+builder.Services.AddScoped<CascadingValueSource<Profile>>(_ =>
+    new CascadingValueSource<Profile>(
+        new Profile { Theme = "dark", Size = 12 },
+        isFixed: false));
+
+builder.Services.AddCascadingValue<Profile>(sp =>
+    sp.GetRequiredService<CascadingValueSource<Profile>>());
+
 
 
 var app = builder.Build();
